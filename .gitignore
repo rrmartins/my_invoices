@@ -40,3 +40,4 @@ npm-debug.log
 tags
 
 /.env
+/docker-volumes/
