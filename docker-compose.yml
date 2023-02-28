@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  phoenix_my_invoices_web:
+    build: .
+    container_name: phoenix_my_invoices_web
+    volumes:
+      - .:/app
+    ports:
+      - 4000:4000
+    environment:
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: phoenix_my_invoices
+      PGHOST: phoenix_my_invoices_db
+      PGPORT: 5432
+    depends_on:
+      - phoenix_my_invoices_db
+    command: mix do deps.get, ecto.create, ecto.migrate, phx.server
+  phoenix_my_invoices_db:
+    image: postgres:13.2-alpine
+    container_name: phoenix_my_invoices_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    restart: always
+    volumes:
+      - ./docker-volumes/postgres-data:/var/lib/postgresql/data
