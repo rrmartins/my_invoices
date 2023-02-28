@@ -17,6 +17,11 @@ deps/
 /cover/
 /deps/
 
+_build
+cover
+deps
+doc
+
 # If the VM crashes, it generates a dump, let's ignore it too.
 erl_crash.dump
 
