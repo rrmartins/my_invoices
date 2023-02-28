@@ -7,6 +7,8 @@
 # General application configuration
 import Config
 
+Code.eval_file("./config/dotenv.exs")
+
 config :my_invoices,
   ecto_repos: [MyInvoices.Repo]
 
