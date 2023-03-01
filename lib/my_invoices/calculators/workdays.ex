@@ -1,5 +1,9 @@
 defmodule MyInvoices.Calculators.Workdays do
-  def calculate_workdays(lastday, month \\ Date.utc_today().month, year \\ Date.utc_today().year) do
+  def calculate_workdays(
+        lastday \\ Date.utc_today().day,
+        month \\ Date.utc_today().month,
+        year \\ Date.utc_today().year
+      ) do
     1..lastday
     |> Enum.map(fn day ->
       {:ok, d} = Date.new(year, month, day)
@@ -17,7 +21,7 @@ defmodule MyInvoices.Calculators.Workdays do
     |> Enum.sum()
   end
 
-  def calculate_workdays_next_month() do
+  def calculate_workdays_current_month() do
     month = Date.utc_today().month
 
     Date.utc_today().year
