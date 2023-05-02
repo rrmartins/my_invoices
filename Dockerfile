@@ -1,7 +1,5 @@
 FROM elixir:1.14.3-alpine
 
-WORKDIR /app
-
 RUN apk add --update --no-cache \
     curl curl-dev make g++ postgresql-client bash openssh git \
     openssl libgcc inotify-tools
