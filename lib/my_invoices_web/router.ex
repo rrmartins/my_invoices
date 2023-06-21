@@ -2,11 +2,13 @@ defmodule MyInvoicesWeb.Router do
   use MyInvoicesWeb, :router
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
   scope "/api", MyInvoicesWeb do
-    pipe_through :api
+    pipe_through(:api)
+
+    resources("/business_days", BusinessDayController)
   end
 
   # Enables LiveDashboard only for development
@@ -20,9 +22,11 @@ defmodule MyInvoicesWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through [:fetch_session, :protect_from_forgery]
+      pipe_through([:fetch_session, :protect_from_forgery])
 
-      live_dashboard "/dashboard", metrics: MyInvoicesWeb.Telemetry
+      live_dashboard("/dashboard", metrics: MyInvoicesWeb.Telemetry)
+
+      resources("/business_days", BusinessDayController)
     end
   end
 
@@ -32,9 +36,9 @@ defmodule MyInvoicesWeb.Router do
   # node running the Phoenix server.
   if Mix.env() == :dev do
     scope "/dev" do
-      pipe_through [:fetch_session, :protect_from_forgery]
+      pipe_through([:fetch_session, :protect_from_forgery])
 
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
+      forward("/mailbox", Plug.Swoosh.MailboxPreview)
     end
   end
 end
